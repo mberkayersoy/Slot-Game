@@ -6,7 +6,7 @@ namespace MyExtensions.RandomSelection
 {
     public interface IRandomSelectedWithWeight
     {
-        public float Weight { get; }
+        public float GetWeight { get; }
     }
 
     public class RandomSelectorWithWeight<T> where T : IRandomSelectedWithWeight
@@ -17,14 +17,14 @@ namespace MyExtensions.RandomSelection
             var totalWeight = 0f;
             foreach (var item in weightedValues)
             {
-                totalWeight += item.Weight;
+                totalWeight += item.GetWeight;
             }
 
             var randomWeightValue = Random.Range(0, totalWeight);
             var processeWeight = 0f;
             foreach (var item in weightedValues)
             {
-                processeWeight += item.Weight;
+                processeWeight += item.GetWeight;
 
                 if (randomWeightValue <= processeWeight)
                 {

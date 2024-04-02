@@ -64,5 +64,4 @@ namespace MyExtensions.TransformExtension
             transform.DOKill();
         }
     }
-
 }
