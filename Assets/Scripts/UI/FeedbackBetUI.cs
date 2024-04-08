@@ -11,6 +11,7 @@ public class FeedbackBetUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _totalCoinText;
     [SerializeField] private Button _decreaseBetButton;
     [SerializeField] private Button _increaseBetButton;
+    [SerializeField] private FreeSpinDisplayComponent _freeSpinPanel;
     [Inject] private UIManager _uiManager;
 
     private void Awake()
@@ -20,21 +21,35 @@ public class FeedbackBetUI : MonoBehaviour
         _uiManager.CurrentBetChanged += DisplayCurrentBet;
         _uiManager.CurrentWinChanged += DisplayCurrentWin;
         _uiManager.TotalCoinChanged += DisplayTotalCoin;
+        _uiManager.FreeSpinCountChanged += DisplayFreeSpin;
     }
+    
+    private void DisplayFreeSpin(int freeSpinCount)
+    {
+        _freeSpinPanel.SetText(freeSpinCount);
 
+        if (freeSpinCount > 0)
+        {
+            _freeSpinPanel.gameObject.SetActive(true);
+        }
+        else
+        {
+            _freeSpinPanel.gameObject.SetActive(false);
+        }
+    }
     private void DisplayTotalCoin(int totalCoin)
     {
-        _totalCoinText.text = "Total Coin: " + totalCoin.ToString();
+        _totalCoinText.text = "Total Coin: " + ShortenNumber(totalCoin);
     }
 
     private void DisplayCurrentWin(float currentWin)
     {
-        _currentWinText.text = "Win: " + currentWin.ToString();
+        _currentWinText.text = "Win: " + ShortenNumber(currentWin);
     }
 
     private void DisplayCurrentBet(int currentBet)
     {
-        _currentBetText.text = "Bet: " + currentBet.ToString();
+        _currentBetText.text = "Bet: " + ShortenNumber(currentBet);
     }
 
     private void OnClickDecreaseBetButton()
@@ -42,6 +57,14 @@ public class FeedbackBetUI : MonoBehaviour
         if (_uiManager.IsSpining) return;
         _uiManager.OnBetDecreased();
     }
+    private string ShortenNumber(float number)
+    {
+        return number >= 1000000000 ? (number / 1000000000f).ToString("F2") + "b" :
+               number >= 1000000 ? (number / 1000000f).ToString("F2") + "m" :
+               number >= 1000 ? (number / 1000f).ToString("F2") + "k" :
+               number.ToString();
+    }
+
 
     private void OnClickIncreaseBetButton()
     {
@@ -56,5 +79,6 @@ public class FeedbackBetUI : MonoBehaviour
         _uiManager.CurrentBetChanged -= DisplayCurrentBet;
         _uiManager.CurrentWinChanged -= DisplayCurrentWin;
         _uiManager.TotalCoinChanged -= DisplayTotalCoin;
+        _uiManager.FreeSpinCountChanged -= DisplayFreeSpin;
     }
 }

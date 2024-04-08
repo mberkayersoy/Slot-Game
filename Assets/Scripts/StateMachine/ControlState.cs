@@ -8,7 +8,7 @@ public class ControlState : GameState
     private List<PayLineComboData> _matchingPaylines = new List<PayLineComboData>();
     private int _minCombo = 3;
     private int _wildID = 0; // Zero is a Wild Symbol ID.
-    private int _scatterID = 11; // Zero is a Wild Symbol ID.
+    private int _scatterID = 11; // Eleven is a Scatter Symbol ID.
     private int _currentScatterCount;
     public ControlState(StateMachine stateMachine, PayLineSO[] paylines) : base(stateMachine)
     {
@@ -27,7 +27,7 @@ public class ControlState : GameState
     public override void OnExit()
     {
         _stateMachine.SlotGameManager.PaymentCalculator.CalculatePayment(_matchingPaylines);
-        CalculateScatters();
+
     }
     private void CalculateValidPayLines()
     {
@@ -66,22 +66,21 @@ public class ControlState : GameState
 
             if (validPaylineFound)
             {
+                if (currentSymbol is StandardSlotSymbolSO)
+                {
+                    _matchingPaylines.Add(new PayLineComboData(currentCombo, currentSymbol as StandardSlotSymbolSO, _payLines[i]));
+                }
 
-                _matchingPaylines.Add(new PayLineComboData(currentCombo, currentSymbol as StandardSlotSymbolSO, _payLines[i]));
             }
         }
-
-        foreach (PayLineComboData payLineComboData in _matchingPaylines)
-        {
-            Debug.Log("Valid  " + payLineComboData.PayLineSO.name + " Combo length: " + payLineComboData.Combo + " SymbolID: " + payLineComboData.SymbolSO.SymbolID);
-        }
-        _stateMachine.ChangeState(_stateMachine.FeedbackState);
+        CalculateScatters();
     }
 
     private void CalculateScatters()
     {
         _currentScatterCount = 0;
         ScatterSymbolSO _scatter = null;
+
         foreach (var item in _slotBoardManager.Board)
         {
             if (item.SymbolID.Equals(_scatterID))
@@ -91,10 +90,12 @@ public class ControlState : GameState
             }
         }
 
-        if ( _currentScatterCount >= 3) 
+        if ( _currentScatterCount >= _minCombo) 
         {
             _scatter.ApplySymbolFeature(_currentScatterCount);
         }
+
+        _stateMachine.ChangeState(_stateMachine.FeedbackState);
     }
 
 }

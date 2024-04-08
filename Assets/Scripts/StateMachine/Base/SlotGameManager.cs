@@ -1,4 +1,6 @@
+using MyExtensions.EventChannels;
 using System;
+using UnityEditor;
 using UnityEngine;
 using Zenject;
 
@@ -6,6 +8,7 @@ public class SlotGameManager : MonoBehaviour
 {
     [SerializeField] private BaseSlotSymbolSO[] _slotSymbols;
     [SerializeField] private PayLineSO[] _payLines;
+    [SerializeField] private IntEventChannelSO _addFreeSpin;
 
     [Inject] private UIManager _uiManager;
     private StateMachine _stateMachine;
@@ -19,8 +22,36 @@ public class SlotGameManager : MonoBehaviour
 
     private void Awake()
     {
+        _addFreeSpin.OnEventRaised += AddFreeSpin;
+        _uiManager.CoinAdded += AddTestCoin;
+        _uiManager.GameExited += QuitGame;
         _slotBoardManager = new SlotBoardGenerator(_slotSymbols);
         _stateMachine = new StateMachine(this);
         _paymentCalculator = new PaymentCalculator(this);
+    }
+
+    private void AddTestCoin()
+    {
+        _paymentCalculator.AddCoin();
+    }
+
+    private void AddFreeSpin(int freeSpinCount)
+    {
+        _paymentCalculator.AddFreeSpin(freeSpinCount);
+    }
+
+    public void QuitGame()
+    {
+        #if UNITY_EDITOR
+            EditorApplication.ExitPlaymode();
+        #else
+            Application.Quit();
+        #endif
+    }
+    private void OnDestroy()
+    {
+        _paymentCalculator.SaveTotalCoinData();
+        _addFreeSpin.OnEventRaised -= AddFreeSpin;
+        _uiManager.GameExited -= QuitGame;
     }
 }

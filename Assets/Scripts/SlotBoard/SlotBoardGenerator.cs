@@ -44,7 +44,6 @@ public class SlotBoardGenerator
     public BaseSlotSymbolSO GetCell(int column, int row)
     {
         int index = column * _rowCount + row;
-        //Debug.Log($"column: {column} , row: {row} , index: {index} , symbolID: {_board[index].SymbolID}");
         return _board[index];
     }
 

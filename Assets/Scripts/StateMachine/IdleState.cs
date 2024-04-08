@@ -26,7 +26,5 @@ public class IdleState : GameState
             _uiManager.OnSpinStarted();
             _stateMachine.ChangeState(_stateMachine.SpinState);
         }
-
     }
-
 }

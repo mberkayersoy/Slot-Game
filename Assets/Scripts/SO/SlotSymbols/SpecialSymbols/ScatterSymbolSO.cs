@@ -1,6 +1,5 @@
 using MyExtensions.EventChannels;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -15,6 +14,7 @@ public class ScatterSymbolSO : SpecialSlotSymbolSO
     [SerializeField] private IntEventChannelSO _giveFreeSpin;
     public void SetDictionary()
     {
+        _paymentDic.Clear();
         foreach (var item in _paymentPairs)
         {
             PaymentDic.Add(item.Key, item.Value);
@@ -24,6 +24,10 @@ public class ScatterSymbolSO : SpecialSlotSymbolSO
     public void ApplySymbolFeature(int scatterCount)
     {
         SetDictionary();
+        if (scatterCount > 5)
+        {
+            scatterCount = 5;
+        }
         _giveFreeSpin.RaiseEvent(_paymentDic[scatterCount]);
     }
 }

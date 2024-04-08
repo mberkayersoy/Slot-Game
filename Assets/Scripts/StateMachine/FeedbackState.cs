@@ -21,9 +21,7 @@ public class FeedbackState : GameState
         _uiManager.OnPayLineDetected(_stateMachine.CalculationState.MatchingPaylines);
     }
 
-    public override void OnExit()
-    {
-        
-    }
+    public override void OnExit() { }
+
 
 }
