@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _symbolID: 0
   _symbolSprite: {fileID: -190375935, guid: e399797dc1d1ac84eaade95437284f76, type: 3}
-  _weight: 5
+  _weight: 3

@@ -9,7 +9,7 @@ public class PaymentCalculator
 
     private int _currentBet = 500;
     private float _currentWin;
-    private int _totalCoin;
+    private int _totalCoin = 1000000;
     private int _betChangeAmount = 1000;
     public PaymentCalculator(SlotGameManager slotGameManager)
     {

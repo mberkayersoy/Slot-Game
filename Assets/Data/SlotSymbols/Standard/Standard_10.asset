@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _symbolID: 10
   _symbolSprite: {fileID: 1615346033, guid: e399797dc1d1ac84eaade95437284f76, type: 3}
-  _weight: 10
+  _weight: 1
   _paymentPairs:
   - Key: 3
     Value: 30
