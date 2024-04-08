@@ -1,14 +1,15 @@
+using UnityEngine;
 public class StateMachine
 {
     private GameState _currentState;
-    public readonly SlotGameManager _sgm;
+    public readonly SlotGameManager SlotGameManager;
     private IdleState _idleState;
     private SpinState _spinState;
     private ControlState _controlState;
     private FeedbackState _feedbackState; 
     public StateMachine(SlotGameManager sgm)
     {
-        _sgm = sgm;
+        SlotGameManager = sgm;
         _idleState = new IdleState(this, sgm.UiManager);
         _spinState = new SpinState(this, sgm.UiManager);
         _controlState = new ControlState(this, sgm.PayLines);

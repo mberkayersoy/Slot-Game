@@ -5,12 +5,13 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "PayLineSO", menuName = "New Pay Line")]
 public class PayLineSO : ScriptableObject
 {
-    private const int _row = 3;
-    private const int _column = 5;
-    [SerializeField]private PayLineCell[] _payLine = new PayLineCell[_row * _column];
-
-    public int RowCount => _row;
-    public int ColumnCount => _column;
+    private const int ROW_COUNT = 3;
+    private const int COLUMN_COUNT = 5;
+    [SerializeField] private Color _lineColor;
+    [SerializeField]private PayLineCell[] _payLine = new PayLineCell[ROW_COUNT * COLUMN_COUNT];
+    public int RowCount => ROW_COUNT;
+    public int ColumnCount => COLUMN_COUNT;
+    public Color LineColor { get => _lineColor; private set => _lineColor = value; }
 
     public PayLineCell GetCell(int column, int row)
     {
@@ -45,7 +46,6 @@ public class PayLineSO : ScriptableObject
             {
                 if (PayLineCell.Defined == GetCell(column, row))
                 {
-                    //Debug.Log("column: " + column + " row: " + row);
                     positions.Add((column, row));
 
                 }

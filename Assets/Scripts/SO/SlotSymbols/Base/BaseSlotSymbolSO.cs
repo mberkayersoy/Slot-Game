@@ -7,7 +7,6 @@ public abstract class BaseSlotSymbolSO : ScriptableObject, IRandomSelectedWithWe
     [SerializeField] private Sprite _symbolSprite;
     [SerializeField, Range(1, 100)] private float _weight;
     public float GetWeight => _weight;
-
     public Sprite SymbolSprite { get => _symbolSprite; set => _symbolSprite = value; }
     public int SymbolID { get => _symbolID; private set => _symbolID = value; }
 }

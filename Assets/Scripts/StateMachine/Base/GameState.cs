@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class GameState
 {
-    protected StateMachine _sm;
+    protected StateMachine _stateMachine;
     public GameState(StateMachine stateMachine)
     {
-        _sm = stateMachine;
+        _stateMachine = stateMachine;
     }
     public virtual void OnEnter()
     {

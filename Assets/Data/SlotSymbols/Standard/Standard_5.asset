@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Standard_5
   m_EditorClassIdentifier: 
   _symbolID: 5
-  _symbolSprite: {fileID: 765393137, guid: c06b92bd436d310429784d200cf4968e, type: 3}
-  _weight: 60
+  _symbolSprite: {fileID: -631589024, guid: cfd81e35e243ccb47b4189b3366783ab, type: 3}
+  _weight: 10
   _paymentPairs:
   - Key: 3
     Value: 15

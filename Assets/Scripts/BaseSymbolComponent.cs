@@ -13,6 +13,7 @@ public class BaseSymbolComponent : PoolableComponent
     private void Awake()
     {
         _symbolImage = GetComponent<Image>();
+        SetData(_symbolSO);
     }
     public void SetData(BaseSlotSymbolSO symbol)
     {

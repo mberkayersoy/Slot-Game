@@ -23,20 +23,21 @@ public class InstantScaleComponent : MonoBehaviour
             _isCanvasElement = true;
         }
     }
-    public void SetScale()
+    public void SetScale(float duration = 0)
     {
+        if (duration == 0) duration = _duration;
         if (_isCanvasElement)
         {
-            _tween = _rectTransform.DOScale(_targetScale * Vector3.one, _duration).SetEase(_easeType).OnComplete(() =>
+            _tween = _rectTransform.DOScale(_targetScale * Vector3.one, duration).SetEase(_easeType).OnComplete(() =>
             {
-                _rectTransform.DOScale(_initialScale * Vector3.one, _duration).SetEase(_easeType);
+                _rectTransform.DOScale(_initialScale * Vector3.one, duration).SetEase(_easeType);
             });
         }
         else
         {
-            _tween = transform.DOScale(_targetScale, _duration).SetEase(_easeType).OnComplete(() =>
+            _tween = transform.DOScale(_targetScale, duration).SetEase(_easeType).OnComplete(() =>
             {
-                transform.DOScale(_initialScale, _duration).SetEase(_easeType);
+                transform.DOScale(_initialScale, duration).SetEase(_easeType);
             });
         }
 

@@ -14,19 +14,19 @@ public class IdleState : GameState
         {
             SetSpinState();
         }
-
     }
+    public override void OnExit() { }
 
-    public override void OnExit()
-    {
-
-    }
     public void SetSpinState()
     {
-        if (_sm.CurrentState != this) return;
+        if (_stateMachine.CurrentState != this) return;
 
-        _uiManager.OnSpinStarted();
-        _sm.ChangeState(_sm.SpinState);
+        if (_stateMachine.SlotGameManager.PaymentCalculator.CheckPlayerCanSpin())
+        {
+            _uiManager.OnSpinStarted();
+            _stateMachine.ChangeState(_stateMachine.SpinState);
+        }
+
     }
 
 }

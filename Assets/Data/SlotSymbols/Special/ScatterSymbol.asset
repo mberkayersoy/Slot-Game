@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d577dc71cae2140847d1ff7b6d3faa, type: 3}
   m_Name: ScatterSymbol
   m_EditorClassIdentifier: 
+  _symbolID: 11
   _symbolSprite: {fileID: -328276686, guid: e399797dc1d1ac84eaade95437284f76, type: 3}
-  _weight: 1
+  _weight: 3
   _paymentPairs:
   - Key: 3
     Value: 5
@@ -21,3 +22,4 @@ MonoBehaviour:
     Value: 10
   - Key: 5
     Value: 20
+  _giveFreeSpin: {fileID: 11400000, guid: 4bb00ee70787e3947bc76424b45b2ecf, type: 2}

@@ -5,5 +5,5 @@ using UnityEngine;
 
 public abstract class SpecialSlotSymbolSO : BaseSlotSymbolSO
 {
-    public abstract void ApplySymbolFeature();
+    //public abstract void ApplySymbolFeature();
 }

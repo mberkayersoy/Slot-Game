@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fa71021aeec6cb4fbcce59d7bcbedf2, type: 3}
   m_Name: PayLine_21
   m_EditorClassIdentifier: 
+  _lineColor: {r: 1, g: 1, b: 1, a: 1}
   _payLine: 000000000100000000000000000000000100000000000000010000000000000000000000000000000100000000000000000000000100000000000000

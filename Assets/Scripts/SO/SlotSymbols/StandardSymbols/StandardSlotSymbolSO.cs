@@ -8,18 +8,22 @@ using UnityEngine.Rendering;
 public class StandardSlotSymbolSO : BaseSlotSymbolSO
 {
     [SerializeField] private ValueKeyPair<int,int>[] _paymentPairs;
-
     [SerializeField] private Dictionary<int,int> _paymentDic = new Dictionary<int, int> ();
 
     public void SetDictionary()
     {
+        _paymentDic.Clear();
         foreach (var item in _paymentPairs)
         {
-            PaymentDic.Add(item.Key, item.Value);
+            _paymentDic.Add(item.Key, item.Value);
         }
     }
 
-    public Dictionary<int, int> PaymentDic { get => _paymentDic; private set => _paymentDic = value; }
+    public Dictionary<int, int> GetDictionary()
+    {
+        SetDictionary();
+        return _paymentDic;
+    }
 }
 
 [System.Serializable]

@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 
 public class FeedbackState : GameState
@@ -7,12 +8,17 @@ public class FeedbackState : GameState
     public FeedbackState(StateMachine stateMachine, UIManager uiManager) : base(stateMachine)
     {
         _uiManager = uiManager;
+        _uiManager.PayLinesDone += SetIdleState;
+    }
+
+    private void SetIdleState()
+    {
+        _stateMachine.ChangeState(_stateMachine.IdleState);
     }
 
     public override void OnEnter()
     {
-
-        _uiManager.OnPayLineDetected(_sm.CalculationState.MatchingPaylines);
+        _uiManager.OnPayLineDetected(_stateMachine.CalculationState.MatchingPaylines);
     }
 
     public override void OnExit()

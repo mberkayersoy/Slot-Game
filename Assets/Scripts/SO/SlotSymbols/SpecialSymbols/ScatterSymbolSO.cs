@@ -1,4 +1,6 @@
+using MyExtensions.EventChannels;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -9,6 +11,8 @@ public class ScatterSymbolSO : SpecialSlotSymbolSO
 
     [SerializeField] private Dictionary<int, int> _paymentDic = new Dictionary<int, int>();
     public Dictionary<int, int> PaymentDic { get => _paymentDic; private set => _paymentDic = value; }
+
+    [SerializeField] private IntEventChannelSO _giveFreeSpin;
     public void SetDictionary()
     {
         foreach (var item in _paymentPairs)
@@ -17,10 +21,9 @@ public class ScatterSymbolSO : SpecialSlotSymbolSO
         }
     }
 
-    public override void ApplySymbolFeature()
+    public void ApplySymbolFeature(int scatterCount)
     {
-        throw new System.NotImplementedException();
+        SetDictionary();
+        _giveFreeSpin.RaiseEvent(_paymentDic[scatterCount]);
     }
-
-
 }

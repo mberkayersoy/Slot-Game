@@ -4,15 +4,16 @@ using UnityEngine;
 public class ControlState : GameState
 {
     private PayLineSO[] _payLines;
-    private SlotBoardManager _slotBoardManager;
+    private SlotBoardGenerator _slotBoardManager;
     private List<PayLineComboData> _matchingPaylines = new List<PayLineComboData>();
+    private int _minCombo = 3;
+    private int _wildID = 0; // Zero is a Wild Symbol ID.
+    private int _scatterID = 11; // Zero is a Wild Symbol ID.
+    private int _currentScatterCount;
     public ControlState(StateMachine stateMachine, PayLineSO[] paylines) : base(stateMachine)
     {
         _payLines = paylines;
-        //if (_sm == null) Debug.Log("_sm null!");
-        //if (_sm._sgm == null) Debug.Log("_sm._sgm null!");
-        //if (_sm._sgm.SlotBoardManager == null) Debug.Log("Slot Manager null");
-        _slotBoardManager = _sm._sgm.SlotBoardManager;
+        _slotBoardManager = _stateMachine.SlotGameManager.SlotBoardManager;
     }
 
     public List<PayLineComboData> MatchingPaylines { get => _matchingPaylines; private set => _matchingPaylines = value; }
@@ -25,6 +26,8 @@ public class ControlState : GameState
 
     public override void OnExit()
     {
+        _stateMachine.SlotGameManager.PaymentCalculator.CalculatePayment(_matchingPaylines);
+        CalculateScatters();
     }
     private void CalculateValidPayLines()
     {
@@ -43,27 +46,28 @@ public class ControlState : GameState
                 BaseSlotSymbolSO checkingSymbol = _slotBoardManager.GetCell(column, row);
                 if (currentSymbol == null)
                 {
-                    //Debug.Log("First Search => CurrentSymbol Null");
-                    // Initialize symbol for this payline
                     currentSymbol = checkingSymbol;
                     currentCombo = 1; // Start a new combo with the current symbol
                     continue;
                 }
-                else if (checkingSymbol.SymbolID.Equals(currentSymbol.SymbolID))
+                else if (checkingSymbol.SymbolID.Equals(currentSymbol.SymbolID) || checkingSymbol.SymbolID.Equals(_wildID)) 
                 {
                     currentCombo++;
                 }
                 else
                 {
-                    if (currentCombo < 3)
+                    if (currentCombo < _minCombo)
                     {
                         validPaylineFound = false;
                     }
+                    break;
                 }
             }
+
             if (validPaylineFound)
             {
-                _matchingPaylines.Add(new PayLineComboData(currentCombo, currentSymbol, _payLines[i]));
+
+                _matchingPaylines.Add(new PayLineComboData(currentCombo, currentSymbol as StandardSlotSymbolSO, _payLines[i]));
             }
         }
 
@@ -71,7 +75,26 @@ public class ControlState : GameState
         {
             Debug.Log("Valid  " + payLineComboData.PayLineSO.name + " Combo length: " + payLineComboData.Combo + " SymbolID: " + payLineComboData.SymbolSO.SymbolID);
         }
-        _sm.ChangeState(_sm.FeedbackState);
+        _stateMachine.ChangeState(_stateMachine.FeedbackState);
+    }
+
+    private void CalculateScatters()
+    {
+        _currentScatterCount = 0;
+        ScatterSymbolSO _scatter = null;
+        foreach (var item in _slotBoardManager.Board)
+        {
+            if (item.SymbolID.Equals(_scatterID))
+            {
+                _currentScatterCount++;
+                _scatter = item as ScatterSymbolSO;
+            }
+        }
+
+        if ( _currentScatterCount >= 3) 
+        {
+            _scatter.ApplySymbolFeature(_currentScatterCount);
+        }
     }
 
 }
@@ -79,10 +102,10 @@ public class ControlState : GameState
 public struct PayLineComboData
 {
     public int Combo;
-    public BaseSlotSymbolSO SymbolSO;
+    public StandardSlotSymbolSO SymbolSO;
     public PayLineSO PayLineSO;
 
-    public PayLineComboData(int combo, BaseSlotSymbolSO symbolSO, PayLineSO payLineSO)
+    public PayLineComboData(int combo, StandardSlotSymbolSO symbolSO, PayLineSO payLineSO)
     {
         Combo = combo;
         SymbolSO = symbolSO;
