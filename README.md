@@ -1,4 +1,12 @@
 # Slot-Game
+This project is a casino slot game with the following features:
+- The game's states were designed using the state pattern.
+  - Idle State
+  - Spin State
+  - Control State
+  - Feedback State
+    
+
 
 Project video: https://www.youtube.com/watch?v=PiWp6BO38_g
 ## Screen Shoots
