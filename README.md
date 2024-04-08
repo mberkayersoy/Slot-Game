@@ -1,6 +1,7 @@
 # Slot-Game
 
-project video: https://www.youtube.com/watch?v=PiWp6BO38_g
+Project video: https://www.youtube.com/watch?v=PiWp6BO38_g
+## Screen Shoots
 ![Image Sequence_002_0000](https://github.com/mberkayersoy/Slot-Game/assets/76611569/0a156a2d-22f8-4609-ae11-fcd6ec705f12)
 ![Image Sequence_003_0000](https://github.com/mberkayersoy/Slot-Game/assets/76611569/0c029baa-1917-45c6-b64f-97ab155ea895)
 ![Image Sequence_004_0000](https://github.com/mberkayersoy/Slot-Game/assets/76611569/fe81cb7d-c5b1-44d9-ab87-aeaece97133b)
