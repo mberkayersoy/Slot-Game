@@ -1,10 +1,14 @@
 # Slot-Game
-This project is a casino slot game with the following features:
-- The game's states were designed using the state pattern.
-  - Idle State
-  - Spin State
-  - Control State
-  - Feedback State
+
+- **Game Features**
+  - 3x5 slot board
+  - 40 different pay lines
+  - 10 types of standard symbols and 2 types of special symbols.
+  - Different payout amounts for each symbol depending on combinations of 3, 4 and 5 symbols
+  - The amount of money the player can bet and earn
+  - Bet increase and decrease
+  - Free spins
+
     
 
 
