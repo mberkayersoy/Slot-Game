@@ -1,5 +1,9 @@
 # Slot-Game
-
+  Slot game is a prototype of the casino slot games popular today.
+  The project is designer friendly. New paylines and different symbols can be easily added. 
+  Symbols and paylines are designed to be easily edited via scriptableobject.
+  If desired, all possible paylines on the board can be calculated with the DFS algorithm. 
+  In this way, the number of rows and columns of the slot board can be changed as desired.
 - **Game Features**
   - 3x5 slot board
   - 40 different pay lines
