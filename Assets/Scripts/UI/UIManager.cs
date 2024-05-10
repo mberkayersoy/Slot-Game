@@ -13,8 +13,8 @@ public class UIManager : MonoBehaviour
     public Action BetIncreased;
     public Action BetDecreased;
     public Action CoinAdded;
-    public Action MaxBet;
-    public Action MinBet;
+    public Action MaxBetChanged;
+    public Action MinBetChanged;
     public Action<int> CurrentBetChanged;
     public Action<float> CurrentWinChanged;
     public Action<int> TotalCoinChanged;
@@ -31,7 +31,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button _maxBetButton;
     [SerializeField] private Button _minBetButton;
     [SerializeField] private Toggle _autoSpinToggle;
-
     private bool _autoSpin;
     private bool _isSpining;
     public bool AutoSpin { get => _autoSpin; private set => _autoSpin = value; }
@@ -48,32 +47,26 @@ public class UIManager : MonoBehaviour
         _maxBetButton.onClick.AddListener(OnClickMaxBetButton);
         _minBetButton.onClick.AddListener(OnClickMinBetButton);
     }
-
     private void OnClickMaxBetButton()
     {
-        MaxBet?.Invoke();
+        MaxBetChanged?.Invoke();
     }
     private void OnClickMinBetButton()
     {
-        MinBet?.Invoke();
+        MinBetChanged?.Invoke();
     }
-
-
     private void OnClickAddCoinButton()
     {
         CoinAdded?.Invoke();
     }
-
     private void OnClickExitGameButton()
     {
         GameExited?.Invoke();
     }
-
     private void OnInfoPanelActivated()
     {
         InfoPanelActivated?.Invoke();
     }
-
     private void SpinMethodChanged(bool isAutoSpin)
     {
         AutoSpin = isAutoSpin;
@@ -108,12 +101,10 @@ public class UIManager : MonoBehaviour
     {
         BetDecreased?.Invoke();
     }
-
     public void OnBetIncreased()
     {
         BetIncreased?.Invoke();
     }
-
     public void OnCurrentBetChanged(int currentBet)
     {
         CurrentBetChanged?.Invoke(currentBet);
@@ -126,7 +117,6 @@ public class UIManager : MonoBehaviour
     {
         TotalCoinChanged?.Invoke(totalCoin);
     }
-
     public void OnFreeSpinCountChanged(int currentFreeSpin)
     {
         bool isActive = currentFreeSpin > 0;

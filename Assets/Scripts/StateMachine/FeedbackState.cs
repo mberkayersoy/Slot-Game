@@ -5,9 +5,9 @@ using UnityEngine;
 public class FeedbackState : GameState
 {
     private UIManager _uiManager;
-    public FeedbackState(StateMachine stateMachine, UIManager uiManager) : base(stateMachine)
+    public FeedbackState(StateMachine stateMachine) : base(stateMachine)
     {
-        _uiManager = uiManager;
+        _uiManager = stateMachine.SlotGameManager.UiManager;
         _uiManager.PayLinesDone += SetIdleState;
     }
 

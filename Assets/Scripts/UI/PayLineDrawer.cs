@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI.Extensions;
 using Zenject;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using System;
 
 public class PayLineDrawer : MonoBehaviour
 {
@@ -13,15 +16,16 @@ public class PayLineDrawer : MonoBehaviour
     {
         _uiManager.PayLineDetected += DrawPayLines;
     }
-    public void DrawPayLines(List<PayLineComboData> list)
+    public async void DrawPayLines(List<PayLineComboData> list)
     {
         if (list.Count <= 0)
         {
-            Invoke(nameof(PayLineDone), 0.5f);
+            PayLineDone();
         }
         else
         {
-            StartCoroutine(DrawLineWait(list));
+            await UniTask.Delay(TimeSpan.FromSeconds(_waitToDrawTime / 2));
+            await DrawLineWait(list);
         }
     }
 
@@ -31,13 +35,14 @@ public class PayLineDrawer : MonoBehaviour
         _lineRenderer.color = new Color(0, 0, 0, 0);
     }
 
-    private IEnumerator DrawLineWait(List<PayLineComboData> list)
+    private async UniTask DrawLineWait(List<PayLineComboData> list)
     {
-        yield return new WaitForSeconds(_waitToDrawTime);
+        PayLineSO payLineSO;
+        List<(int, int)> payLineCellPositions;
         foreach (PayLineComboData data in list)
         {
-            PayLineSO payLineSO = data.PayLineSO;
-            List<(int, int)> payLineCellPositions = payLineSO.GetPayLineCellsWithOrder();
+            payLineSO = data.PayLineSO;
+            payLineCellPositions = payLineSO.GetPayLineCellsWithOrder();
 
             for (int i = 0; i < payLineCellPositions.Count; i++)
             {
@@ -65,9 +70,9 @@ public class PayLineDrawer : MonoBehaviour
             }
             _lineRenderer.color = payLineSO.LineColor;
             _lineRenderer.LineThickness = 25;
-            yield return new WaitForSeconds(_waitToDrawTime);
+            await UniTask.Delay(TimeSpan.FromSeconds(_waitToDrawTime));
         }
-        Invoke(nameof(PayLineDone), _waitToDrawTime);
+        PayLineDone();
     }
 
     private void OnDestroy()

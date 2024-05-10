@@ -16,12 +16,8 @@ public class InstantScaleComponent : MonoBehaviour
     private void Awake()
     {
         _initialScale = transform.localScale.x;
-
-        if (TryGetComponent(out RectTransform rectTransform))
-        {
-            _rectTransform = rectTransform;
-            _isCanvasElement = true;
-        }
+        
+        _isCanvasElement = TryGetComponent(out _rectTransform);
     }
     public void SetScale(float duration = 0)
     {

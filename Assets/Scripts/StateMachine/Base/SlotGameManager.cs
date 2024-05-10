@@ -31,17 +31,14 @@ public class SlotGameManager : MonoBehaviour
         _stateMachine = new StateMachine(this);
         _paymentCalculator = new PaymentCalculator(this);
     }
-
     private void AddTestCoin()
     {
         _paymentCalculator.AddCoin();
     }
-
     private void AddFreeSpin(int freeSpinCount)
     {
         _paymentCalculator.AddFreeSpin(freeSpinCount);
     }
-
     public void QuitGame()
     {
         #if UNITY_EDITOR

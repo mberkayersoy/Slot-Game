@@ -5,7 +5,7 @@ using UnityEngine;
 public static class SlotGameCommonExtensions
 {
     public static int COLUMN_COUNT = 5;
-    public static int ROW_COUNT = 5;
+    public static int ROW_COUNT = 3;
     public static void IterateSlotBoard<T>(this T[] board, System.Action<int, int, T> action)
     {
 

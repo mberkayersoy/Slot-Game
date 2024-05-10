@@ -2,9 +2,9 @@ public class SpinState : GameState
 {
     private UIManager _uiManager;
 
-    public SpinState(StateMachine stateMachine, UIManager uiManager) : base(stateMachine)
+    public SpinState(StateMachine stateMachine) : base(stateMachine)
     {
-        _uiManager = uiManager;
+        _uiManager = stateMachine.SlotGameManager.UiManager;
         _uiManager.SpinEnded += SetNextState;
     }
     public override void OnEnter()

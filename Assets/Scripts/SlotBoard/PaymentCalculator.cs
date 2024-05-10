@@ -20,8 +20,8 @@ public class PaymentCalculator
         _uiManager = slotGameManager.UiManager;
         _uiManager.BetDecreased += DecreaseBet;
         _uiManager.BetIncreased += IncreaseBet;
-        _uiManager.MaxBet += SetMaxBet;
-        _uiManager.MinBet += SetMinBet;
+        _uiManager.MaxBetChanged += SetMaxBet;
+        _uiManager.MinBetChanged += SetMinBet;
 
         _totalCoin = SaveLoadManager<int>.Load(TOTAL_COIN_DATA_PATH);
         if (_totalCoin == default) { AddCoin(); }

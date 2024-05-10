@@ -10,13 +10,12 @@ public class StateMachine
     public StateMachine(SlotGameManager sgm)
     {
         SlotGameManager = sgm;
-        _idleState = new IdleState(this, sgm.UiManager);
-        _spinState = new SpinState(this, sgm.UiManager);
-        _controlState = new ControlState(this, sgm.PayLines);
-        _feedbackState = new FeedbackState(this, sgm.UiManager);
+        _idleState = new IdleState(this);
+        _spinState = new SpinState(this);
+        _controlState = new ControlState(this);
+        _feedbackState = new FeedbackState(this);
         ChangeState(_idleState);
     }
-
     public GameState CurrentState { get => _currentState; private set => _currentState = value; }
     public IdleState IdleState { get => _idleState; private set => _idleState = value; }
     public SpinState SpinState { get => _spinState; private set => _spinState = value; }

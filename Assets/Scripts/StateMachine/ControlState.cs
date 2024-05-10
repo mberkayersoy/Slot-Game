@@ -11,14 +11,12 @@ public class ControlState : GameState
     private int _wildID = 0; // Zero is a Wild Symbol ID.
     private int _scatterID = 11; // Eleven is a Scatter Symbol ID.
     private int _currentScatterCount;
-    public ControlState(StateMachine stateMachine, PayLineSO[] paylines) : base(stateMachine)
+    public ControlState(StateMachine stateMachine) : base(stateMachine)
     {
-        _payLines = paylines;
+        _payLines = stateMachine.SlotGameManager.PayLines;
         _slotBoardManager = _stateMachine.SlotGameManager.SlotBoardManager;
     }
-
     public List<PayLineComboData> MatchingPaylines { get => _matchingPaylines; private set => _matchingPaylines = value; }
-
     public override void OnEnter()
     {
         _matchingPaylines.Clear();
@@ -33,7 +31,6 @@ public class ControlState : GameState
         }
 
     }
-
     public override void OnExit()
     {
         _stateMachine.SlotGameManager.PaymentCalculator.CalculatePayment(_matchingPaylines);

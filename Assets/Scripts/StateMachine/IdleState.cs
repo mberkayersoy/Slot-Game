@@ -3,9 +3,9 @@ using UnityEngine;
 public class IdleState : GameState
 {
     private UIManager _uiManager;
-    public IdleState(StateMachine stateMachine, UIManager uiManager) : base(stateMachine)
+    public IdleState(StateMachine stateMachine) : base(stateMachine)
     {
-        _uiManager = uiManager;
+        _uiManager = stateMachine.SlotGameManager.UiManager;
         _uiManager.SpinClicked += SetSpinState;
     }
     public override void OnEnter()
