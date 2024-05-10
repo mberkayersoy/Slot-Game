@@ -9,6 +9,7 @@ public class SlotGameManager : MonoBehaviour
     [SerializeField] private BaseSlotSymbolSO[] _slotSymbols;
     [SerializeField] private PayLineSO[] _payLines;
     [SerializeField] private IntEventChannelSO _addFreeSpin;
+    [SerializeField] private bool _calculateWithDFS;
 
     [Inject] private UIManager _uiManager;
     private StateMachine _stateMachine;
@@ -19,6 +20,7 @@ public class SlotGameManager : MonoBehaviour
     public PayLineSO[] PayLines { get => _payLines; private set => _payLines = value; }
     public BaseSlotSymbolSO[] SlotSymbols { get => _slotSymbols; set => _slotSymbols = value; }
     public PaymentCalculator PaymentCalculator { get => _paymentCalculator; private set => _paymentCalculator = value; }
+    public bool CalculateWithDFS { get => _calculateWithDFS; private set => _calculateWithDFS = value; }
 
     private void Awake()
     {

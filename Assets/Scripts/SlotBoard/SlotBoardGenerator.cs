@@ -11,21 +11,16 @@ public class SlotBoardGenerator
         _slotSymbols = slotSymbols;
     }
     private BaseSlotSymbolSO[] _slotSymbols;
-    private BaseSlotSymbolSO[] _board = new BaseSlotSymbolSO[_rowCount * _columnCount];
+    private BaseSlotSymbolSO[] _board = new BaseSlotSymbolSO[SlotGameCommonExtensions.ROW_COUNT * SlotGameCommonExtensions.COLUMN_COUNT];
     private RandomSelectorWithWeight<BaseSlotSymbolSO> _selector = new RandomSelectorWithWeight<BaseSlotSymbolSO>();
-    private const int _rowCount = 3;
-    private const int _columnCount = 5;
+
     public BaseSlotSymbolSO[] Board { get => _board; private set => _board = value; }
-
-    public int RowCount => _rowCount;
-
-    public int ColumnCount => _columnCount;
 
     public BaseSlotSymbolSO[] GenerateBoard()
     {
-        for (int column = 0; column < _columnCount; column++)
+        for (int column = 0; column < SlotGameCommonExtensions.COLUMN_COUNT; column++)
         {
-            for (int row = 0; row < _rowCount; row++)
+            for (int row = 0; row < SlotGameCommonExtensions.ROW_COUNT; row++)
             {
                 BaseSlotSymbolSO symbol;
                 do
@@ -33,24 +28,10 @@ public class SlotBoardGenerator
                     symbol = _selector.GetRandomWithWeight(_slotSymbols);
                 } while (column == 0 && symbol.SymbolID == 0);
 
-                SetCell(column, row, symbol);
+                SlotGameCommonExtensions.SetCell(_board, column, row, symbol);
             }
         }
 
         return _board;
-    }
-
-
-    public BaseSlotSymbolSO GetCell(int column, int row)
-    {
-        int index = column * _rowCount + row;
-        return _board[index];
-    }
-
-
-    public void SetCell(int column, int row, BaseSlotSymbolSO value)
-    {
-        int index = column * _rowCount + row;
-        _board[index] = value;
     }
 }

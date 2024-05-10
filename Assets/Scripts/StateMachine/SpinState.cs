@@ -9,7 +9,9 @@ public class SpinState : GameState
     }
     public override void OnEnter()
     {
-        _uiManager.OnBoardGenerated(_stateMachine.SlotGameManager.SlotBoardManager.GenerateBoard(), _stateMachine.SlotGameManager.SlotBoardManager.ColumnCount, _stateMachine.SlotGameManager.SlotBoardManager.RowCount);
+        _uiManager.OnBoardGenerated(_stateMachine.SlotGameManager.SlotBoardManager.GenerateBoard(), 
+            SlotGameCommonExtensions.COLUMN_COUNT,
+            SlotGameCommonExtensions.ROW_COUNT);
     }
     public override void OnExit() { }
     private void SetNextState()

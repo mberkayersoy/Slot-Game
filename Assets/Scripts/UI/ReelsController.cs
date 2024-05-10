@@ -36,17 +36,11 @@ public class ReelsController : MonoBehaviour
                 var child = _uiManager.Reels[columnIndex].GetChild(rowIndex).GetComponent<BaseSymbolComponent>();
                 if (child != null)
                 {
-                    child.SetData(GetCell(newBoard, columnIndex, rowIndex, rowCount));
+                    child.SetData(SlotGameCommonExtensions.GetCell(newBoard, columnIndex, rowIndex));
                 }
             }
         }
     }
-    public BaseSlotSymbolSO GetCell(BaseSlotSymbolSO[] newBoard, int column, int row, int rowCount = 3)
-    {
-        int index = column * rowCount + row;
-        return newBoard[index];
-    }
-
     private void StartMovement()
     {
         StartCoroutine(AnimateSymbols());
